@@ -1,0 +1,41 @@
+﻿@page
+@model WebShop.Pages.ShoppingCartModel
+@{
+    ViewData["Title"] = "ShoppingCart";
+}
+
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <h2>ShoppingCart</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ShoppingCart)
+            {
+                <tr>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>
+                        <form method="post" asp-page-handler="RemoveFromCart" asp-route-productId="@item.ProductId">
+                            @Html.AntiForgeryToken()  <!-- Important for security -->
+                            <button type="submit" class="btn btn-danger">
+                                Remove
+                            </button>
+                        </form>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>You are not logged in. Please log in to view your shopping cart.</p>
+}

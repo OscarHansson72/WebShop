@@ -1,0 +1,26 @@
+﻿@page
+@model WebShop.Pages.ProductsModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Products)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td><a class="btn btn-primary" asp-page="/Products" asp-page-handler="AddToCart" asp-route-productId="@product.Id">Add To Cart</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
